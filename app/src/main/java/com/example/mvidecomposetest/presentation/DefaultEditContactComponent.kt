@@ -10,10 +10,10 @@ class DefaultEditContactComponent (
     private val contact: Contact
 ) : EditContactComponent {
 
-    val repository = RepositoryImpl
-    val editContactUseCase = EditContactUseCase(repository)
+    private val repository = RepositoryImpl
+    private val editContactUseCase = EditContactUseCase(repository)
 
-    val _model = MutableStateFlow(
+    private val _model = MutableStateFlow(
         Model(username = contact.username, phone = contact.username )
     )
 
