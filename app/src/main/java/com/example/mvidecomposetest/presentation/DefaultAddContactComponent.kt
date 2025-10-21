@@ -11,9 +11,9 @@ class DefaultAddContactComponent : AddContactComponent {
     private val repository = RepositoryImpl
     private val addContactUseCase = AddContactUseCase(repository)
 
-    private val _model = MutableStateFlow(AddContactComponent.Model(username = "", phone = ""))
+    private val _model = MutableStateFlow(Model(username = "", phone = ""))
 
-    override val model: StateFlow<AddContactComponent.Model>
+    override val model: StateFlow<Model>
         get() = _model.asStateFlow()
 
     override fun onUsernameChanged(username: String) {

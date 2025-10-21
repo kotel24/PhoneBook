@@ -11,9 +11,4 @@ interface AddContactComponent {
     fun onPhoneChanged(phone: String)
 
     fun onSaveContactClicked()
-
-    data class Model(
-        val username: String,
-        val phone: String
-    )
 }
