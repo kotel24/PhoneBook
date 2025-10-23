@@ -24,7 +24,7 @@ class DefaultEditContactComponent (
     }
 
     private val _model = MutableStateFlow(
-        stateKeeper.consume(KEY)?:Model(username = contact.username, phone = contact.username )
+        stateKeeper.consume(KEY)?:Model(username = contact.username, phone = contact.phone )
     )
 
     override val model: StateFlow<Model>

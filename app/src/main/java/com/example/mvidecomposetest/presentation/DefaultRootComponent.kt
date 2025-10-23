@@ -29,7 +29,7 @@ class DefaultRootComponent(
         config: Config
     ): ComponentContext {
         return when (config){
-            Config.AddContact -> {
+            is Config.AddContact -> {
                 DefaultAddContactComponent(
                     componentContext = componentContext,
                     onContactSaved = {
@@ -37,11 +37,11 @@ class DefaultRootComponent(
                     }
                 )
             }
-            Config.ContactList -> {
+            is Config.ContactList -> {
                 DefaultContactListComponent(
                     componentContext = componentContext,
                     onEditingContactRequested = {navigation.push(Config.EditContact(contact = it))},
-                    onAddContactRequested = { Config.AddContact}
+                    onAddContactRequested = { navigation.push(Config.AddContact)}
                 )
             }
             is Config.EditContact -> {
