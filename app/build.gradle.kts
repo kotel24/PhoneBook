@@ -64,6 +64,7 @@ dependencies {
     implementation("com.arkivanov.decompose:decompose:2.2.0")
     implementation("com.arkivanov.essenty:parcelable:1.3.0")
     implementation("com.arkivanov.essenty:state-keeper:1.3.0")
+    implementation("com.arkivanov.decompose:extensions-compose-jetpack:2.2.0")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
