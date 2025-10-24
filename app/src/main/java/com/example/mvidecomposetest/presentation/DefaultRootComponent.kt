@@ -17,7 +17,7 @@ class DefaultRootComponent(
 
     private val navigation = StackNavigation<Config>()
 
-    val stack: Value<ChildStack<Config, Child>> = childStack(
+    override val stack: Value<ChildStack<*, RootComponent.Child>> = childStack(
         source = navigation,
         initialConfiguration = Config.ContactList,
         handleBackButton = true,
@@ -27,7 +27,7 @@ class DefaultRootComponent(
     private fun child(
         componentContext: ComponentContext,
         config: Config
-    ): Child {
+    ): RootComponent.Child {
         return when (config){
             is Config.AddContact -> {
                 val component = DefaultAddContactComponent(
@@ -36,7 +36,7 @@ class DefaultRootComponent(
                         navigation.pop()
                     }
                 )
-                Child.AddContact(component)
+                RootComponent.Child.AddContact(component)
             }
             is Config.ContactList -> {
                 val component = DefaultContactListComponent(
@@ -44,7 +44,7 @@ class DefaultRootComponent(
                     onEditingContactRequested = {navigation.push(Config.EditContact(contact = it))},
                     onAddContactRequested = { navigation.push(Config.AddContact)}
                 )
-                Child.ContactList(component)
+                RootComponent.Child.ContactList(component)
             }
             is Config.EditContact -> {
                 val component = DefaultEditContactComponent(
@@ -54,20 +54,12 @@ class DefaultRootComponent(
                         navigation.pop()
                     }
                 )
-                Child.EditContact(component)
+                RootComponent.Child.EditContact(component)
             }
         }
     }
 
-    sealed interface Child {
-        class AddContact(val component: AddContactComponent): Child
-
-        class EditContact(val component: EditContactComponent): Child
-
-        class ContactList(val component: ContactListComponent): Child
-    }
-
-    sealed interface Config: Parcelable {
+    private sealed interface Config: Parcelable {
         @Parcelize
         object ContactList: Config
         @Parcelize
