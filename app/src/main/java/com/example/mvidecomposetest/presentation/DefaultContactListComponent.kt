@@ -33,6 +33,6 @@ class DefaultContactListComponent(
     }
 
     override fun onAddContactClicked() {
-        onAddContactRequested
+        onAddContactRequested()
     }
 }

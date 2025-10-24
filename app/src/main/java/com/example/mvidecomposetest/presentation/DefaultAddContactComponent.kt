@@ -40,7 +40,7 @@ class DefaultAddContactComponent (
 
     override fun onSaveContactClicked() {
         addContactUseCase(_model.value.username, _model.value.phone)
-        onContactSaved
+        onContactSaved()
     }
     companion object{
         const val KEY = "DefaultAddContactComponent"
