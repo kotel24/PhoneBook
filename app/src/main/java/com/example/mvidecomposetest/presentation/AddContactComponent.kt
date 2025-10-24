@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.StateFlow
 
 interface AddContactComponent {
 
-    val model: StateFlow<Model>
+    val model: StateFlow<AddContactStore.State>
 
     fun onUsernameChanged(username: String)
 
