@@ -11,10 +11,10 @@ class EditContactStoreFactory (
     private val storeFactory: StoreFactory,
     private val editContactUseCase: EditContactUseCase
 ){
-    fun create(): EditContactStore = object : EditContactStore,
+    fun create(contact: Contact): EditContactStore = object : EditContactStore,
         Store<EditContactStore.Intent, EditContactStore.State, EditContactStore.Label> by storeFactory.create(
             name = "EditContactStoreFactory",
-            initialState = EditContactStore.State(username = "", phone = ""),
+            initialState = EditContactStore.State(id = contact.id, username = contact.username, phone = contact.phone),
             reducer = ReducerImp,
             executorFactory = {ExecutorImpl()}
         ){}
@@ -40,7 +40,7 @@ class EditContactStoreFactory (
                 }
                 EditContactStore.Intent.SaveContact -> {
                     val state = getState()
-                    editContactUseCase(Contact(username = state.username, phone = state.phone))
+                    editContactUseCase(Contact(id = state.id,username = state.username, phone = state.phone))
                     publish(EditContactStore.Label.ContactSaved)
                 }
             }
