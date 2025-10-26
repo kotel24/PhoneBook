@@ -11,13 +11,13 @@ class EditContactStoreFactory (
     private val storeFactory: StoreFactory,
     private val editContactUseCase: EditContactUseCase
 ){
-    private val store: Store<EditContactStore.Intent, EditContactStore.State, EditContactStore.Label> =
-        storeFactory.create(
+    fun create(): EditContactStore = object : EditContactStore,
+        Store<EditContactStore.Intent, EditContactStore.State, EditContactStore.Label> by storeFactory.create(
             name = "EditContactStoreFactory",
             initialState = EditContactStore.State(username = "", phone = ""),
             reducer = ReducerImp,
             executorFactory = {ExecutorImpl()}
-        )
+        ){}
     private sealed interface Action
 
     private sealed interface Message{
