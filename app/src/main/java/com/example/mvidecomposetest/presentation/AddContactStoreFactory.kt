@@ -37,7 +37,7 @@ class AddContactStoreFactory (
                     dispatch(Message.ChangePhone(phone = intent.phone))
                 }
                 is AddContactStore.Intent.ChangeUsername -> {
-                    dispatch(Message.ChangePhone(phone = intent.username))
+                    dispatch(Message.ChangeUsername(username = intent.username))
                 }
                 AddContactStore.Intent.SaveContact -> {
                     val state = getState()

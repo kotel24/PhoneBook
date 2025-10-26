@@ -3,8 +3,7 @@ package com.example.mvidecomposetest.presentation
 import com.arkivanov.mvikotlin.core.store.Reducer
 import com.arkivanov.mvikotlin.core.store.Store
 import com.arkivanov.mvikotlin.core.store.StoreFactory
-import com.example.mvidecomposetest.domain.Contact
-import com.example.mvidecomposetest.presentation.EditContactStore.Intent
+import com.arkivanov.mvikotlin.extensions.coroutines.CoroutineExecutor
 
 class EditContactStoreFactory (
     private val storeFactory: StoreFactory
@@ -13,7 +12,8 @@ class EditContactStoreFactory (
         storeFactory.create(
             name = "EditContactStoreFactory",
             initialState = EditContactStore.State(username = "", phone = ""),
-
+            reducer = ReducerImp,
+            executorFactory = {ExecutorImpl()}
         )
     private sealed interface Action
 
@@ -21,6 +21,26 @@ class EditContactStoreFactory (
         data class ChangeUsername(val username: String): Message
 
         data class ChangePhone(val phone: String): Message
+    }
+
+    private inner class ExecutorImpl: CoroutineExecutor<EditContactStore.Intent, Action, EditContactStore.State, Message, EditContactStore.Label>(){
+        override fun executeIntent(
+            intent: EditContactStore.Intent,
+            getState: () -> EditContactStore.State
+        ) {
+            val state = getState
+            when(intent){
+                is EditContactStore.Intent.ChangePhone -> {
+                    dispatch(Message.ChangePhone(phone = intent.phone))
+                }
+                is EditContactStore.Intent.ChangeUsername -> {
+                    dispatch(Message.ChangeUsername(username = intent.username))
+                }
+                EditContactStore.Intent.SaveContact -> {
+                    publish(EditContactStore.Label.ContactSaved)
+                }
+            }
+        }
     }
 
     private object ReducerImp: Reducer<EditContactStore.State, Message>{
