@@ -4,9 +4,12 @@ import com.arkivanov.mvikotlin.core.store.Reducer
 import com.arkivanov.mvikotlin.core.store.Store
 import com.arkivanov.mvikotlin.core.store.StoreFactory
 import com.arkivanov.mvikotlin.extensions.coroutines.CoroutineExecutor
+import com.example.mvidecomposetest.domain.Contact
+import com.example.mvidecomposetest.domain.EditContactUseCase
 
 class EditContactStoreFactory (
-    private val storeFactory: StoreFactory
+    private val storeFactory: StoreFactory,
+    private val editContactUseCase: EditContactUseCase
 ){
     private val store: Store<EditContactStore.Intent, EditContactStore.State, EditContactStore.Label> =
         storeFactory.create(
@@ -28,7 +31,6 @@ class EditContactStoreFactory (
             intent: EditContactStore.Intent,
             getState: () -> EditContactStore.State
         ) {
-            val state = getState
             when(intent){
                 is EditContactStore.Intent.ChangePhone -> {
                     dispatch(Message.ChangePhone(phone = intent.phone))
@@ -37,6 +39,8 @@ class EditContactStoreFactory (
                     dispatch(Message.ChangeUsername(username = intent.username))
                 }
                 EditContactStore.Intent.SaveContact -> {
+                    val state = getState()
+                    editContactUseCase(Contact(username = state.username, phone = state.phone))
                     publish(EditContactStore.Label.ContactSaved)
                 }
             }
