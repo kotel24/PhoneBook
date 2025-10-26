@@ -1,6 +1,5 @@
 package com.example.mvidecomposetest.presentation
 
-import android.service.autofill.UserData
 import com.arkivanov.mvikotlin.core.store.Store
 
 interface AddContactStore: Store<AddContactStore.Intent, AddContactStore.State, AddContactStore.Label> {
