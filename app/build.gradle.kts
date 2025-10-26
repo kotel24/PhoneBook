@@ -65,6 +65,9 @@ dependencies {
     implementation("com.arkivanov.essenty:parcelable:1.3.0")
     implementation("com.arkivanov.essenty:state-keeper:1.3.0")
     implementation("com.arkivanov.decompose:extensions-compose-jetpack:2.2.0")
+    implementation("com.arkivanov.mvikotlin:mvikotlin:3.2.1")
+    implementation("com.arkivanov.mvikotlin:mvikotlin-main:3.2.1")
+    implementation("com.arkivanov.mvikotlin:mvikotlin-extensions-coroutines:3.2.1")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

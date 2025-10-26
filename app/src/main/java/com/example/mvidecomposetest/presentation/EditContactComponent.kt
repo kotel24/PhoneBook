@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.StateFlow
 
 interface EditContactComponent {
 
-    val model: StateFlow<Model>
+    val model: StateFlow<EditContactStore.State>
 
     fun onUsernameEdit(username: String)
 

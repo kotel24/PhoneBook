@@ -5,13 +5,10 @@ import kotlinx.coroutines.flow.StateFlow
 
 interface ContactListComponent {
 
-    val model: StateFlow<Model>
+    val model: StateFlow<ContactListStore.State>
 
     fun onContactClick(contact: Contact)
 
     fun onAddContactClicked()
 
-    data class Model(
-        val contactList: List<Contact>
-    )
 }
