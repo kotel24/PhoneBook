@@ -19,8 +19,8 @@ class DefaultContactListComponent(
     val onEditingContactRequested: (Contact) -> Unit,
     val onAddContactRequested: () -> Unit
 ) : ContactListComponent, ComponentContext by componentContext{
-
-    private lateinit var store: ContactListStore
+    private val storeFactory = ContactListStoreFactory()
+    private var store: ContactListStore = storeFactory.create()
 
     init {
         componentScope().launch {
